@@ -412,15 +412,28 @@
     <ClCompile Include="..\..\xbmc\cores\dvdplayer\DVDInputStreams\DVDInputStreamBluray.cpp" />
     <ClCompile Include="..\..\xbmc\cores\dvdplayer\DVDInputStreams\DVDInputStreamPVRManager.cpp" />
     <ClCompile Include="..\..\xbmc\cores\paplayer\PCMCodec.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayer.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerAudio.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerDialogs.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerInput.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerBuffer.cpp" />
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerVideo.cpp" />
     <ClCompile Include="..\..\xbmc\cores\VideoRenderers\RenderCapture.cpp" />
     <ClCompile Include="..\..\xbmc\cores\VideoRenderers\VideoShaders\WinVideoFilter.cpp" />
     <ClCompile Include="..\..\xbmc\CueDocument.cpp" />
     <ClCompile Include="..\..\xbmc\DbUrl.cpp" />
     <ClCompile Include="..\..\xbmc\dbwrappers\Database.cpp" />
     <ClCompile Include="..\..\xbmc\dbwrappers\dataset.cpp" />
+    <ClCompile Include="..\..\xbmc\dbwrappers\DynamicDatabase.cpp" />
     <ClCompile Include="..\..\xbmc\dbwrappers\mysqldataset.cpp" />
     <ClCompile Include="..\..\xbmc\dbwrappers\qry_dat.cpp" />
     <ClCompile Include="..\..\xbmc\dbwrappers\sqlitedataset.cpp" />
+    <ClCompile Include="..\..\xbmc\dbwrappers\test\TestDynamicDatabase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (OpenGL)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (OpenGL)|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\xbmc\dialogs\GUIDialogBoxBase.cpp" />
     <ClCompile Include="..\..\xbmc\dialogs\GUIDialogBusy.cpp" />
     <ClCompile Include="..\..\xbmc\dialogs\GUIDialogButtonMenu.cpp" />
@@ -592,6 +605,26 @@
     <ClCompile Include="..\..\xbmc\filesystem\ZipDirectory.cpp" />
     <ClCompile Include="..\..\xbmc\filesystem\ZipFile.cpp" />
     <ClCompile Include="..\..\xbmc\filesystem\ZipManager.cpp" />
+    <ClCompile Include="..\..\xbmc\games\GameFileAutoLauncher.cpp" />
+    <ClCompile Include="..\..\xbmc\games\GameSettings.cpp" />
+    <ClCompile Include="..\..\xbmc\games\tags\GameInfoTag.cpp" />
+    <ClCompile Include="..\..\xbmc\games\tags\GameInfoTagLoader.cpp" />
+    <ClCompile Include="..\..\xbmc\games\GameClient.cpp" />
+    <ClCompile Include="..\..\xbmc\games\GameFileLoader.cpp" />
+    <ClCompile Include="..\..\xbmc\games\GameManager.cpp" />
+    <ClCompile Include="..\..\xbmc\games\libretro\LibretroEnvironment.cpp" />
+    <ClCompile Include="..\..\xbmc\games\test\TestGameFileLoader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (OpenGL)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (OpenGL)|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\SerialState.cpp" />
+    <ClCompile Include="..\..\xbmc\games\windows\GUIViewStateWindowGames.cpp" />
+    <ClCompile Include="..\..\xbmc\games\windows\GUIWindowGames.cpp" />
+    <ClCompile Include="..\..\xbmc\games\savegames\SavestateDatabase.cpp" />
+    <ClCompile Include="..\..\xbmc\games\savegames\Savestate.cpp" />
+    <ClCompile Include="..\..\xbmc\games\savegames\GUIDialogGameSaves.cpp" />
     <ClCompile Include="..\..\xbmc\GitRevision.cpp" />
     <ClCompile Include="..\..\xbmc\GUIInfoManager.cpp" />
     <ClCompile Include="..\..\xbmc\GUILargeTextureManager.cpp" />
@@ -711,6 +744,8 @@
     <ClCompile Include="..\..\xbmc\GUIPassword.cpp" />
     <ClCompile Include="..\..\xbmc\input\ButtonTranslator.cpp" />
     <ClCompile Include="..\..\xbmc\input\InertialScrollingHandler.cpp" />
+    <ClCompile Include="..\..\xbmc\input\Joystick.cpp" />
+    <ClCompile Include="..\..\xbmc\input\JoystickManager.cpp" />
     <ClCompile Include="..\..\xbmc\input\KeyboardLayoutConfiguration.cpp" />
     <ClCompile Include="..\..\xbmc\input\KeyboardStat.cpp" />
     <ClCompile Include="..\..\xbmc\input\MouseStat.cpp" />
@@ -719,7 +754,8 @@
     <ClCompile Include="..\..\xbmc\input\touch\ITouchInputHandling.cpp" />
     <ClCompile Include="..\..\xbmc\input\windows\IRServerSuite.cpp" />
     <ClCompile Include="..\..\xbmc\input\windows\IrssMessage.cpp" />
-    <ClCompile Include="..\..\xbmc\input\windows\WINJoystick.cpp" />
+    <ClCompile Include="..\..\xbmc\input\windows\WINJoystickDX.cpp" />
+    <ClCompile Include="..\..\xbmc\input\windows\WINJoystickXInput.cpp" />
     <ClCompile Include="..\..\xbmc\input\XBMC_keytable.cpp" />
     <ClCompile Include="..\..\xbmc\interfaces\AnnouncementManager.cpp" />
     <ClCompile Include="..\..\xbmc\interfaces\Builtins.cpp" />
@@ -1075,6 +1111,13 @@
     <ClInclude Include="..\..\xbmc\cores\dvdplayer\DVDDemuxers\DVDDemuxBXA.h" />
     <ClInclude Include="..\..\xbmc\cores\dvdplayer\DVDDemuxers\DVDDemuxCDDA.h" />
     <ClInclude Include="..\..\xbmc\cores\paplayer\PCMCodec.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayer.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerAudio.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerBuffer.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerDialogs.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerInput.h" />
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerVideo.h" />
+    <ClInclude Include="..\..\xbmc\dbwrappers\DynamicDatabase.h" />
     <ClInclude Include="..\..\xbmc\dialogs\GUIDialogKeyboardGeneric.h" />
     <ClInclude Include="..\..\xbmc\DbUrl.h" />
     <ClInclude Include="..\..\xbmc\dialogs\GUIDialogMediaFilter.h" />
@@ -1096,11 +1139,30 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release (DirectX)|Win32'">Retrieving the git revision</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release (OpenGL)|Win32'">Retrieving the git revision</Message>
     </CustomBuild>
+    <ClInclude Include="..\..\xbmc\games\GameFileAutoLauncher.h" />
+    <ClInclude Include="..\..\xbmc\games\GameSettings.h" />
+    <ClInclude Include="..\..\xbmc\games\libretro\LibretroCallbacks.h" />
     <ClInclude Include="..\..\xbmc\guilib\cximage.h" />
+    <ClInclude Include="..\..\xbmc\games\tags\GameInfoTag.h" />
+    <ClInclude Include="..\..\xbmc\games\tags\GameInfoTagLoader.h" />
+    <ClInclude Include="..\..\xbmc\games\GameClient.h" />
+    <ClInclude Include="..\..\xbmc\games\GameClientDLL.h" />
+    <ClInclude Include="..\..\xbmc\games\GameFileLoader.h" />
+    <ClInclude Include="..\..\xbmc\games\GameManager.h" />
+    <ClInclude Include="..\..\xbmc\games\libretro\libretro.h" />
+    <ClInclude Include="..\..\xbmc\games\libretro\libretro_wrapped.h" />
+    <ClInclude Include="..\..\xbmc\games\libretro\LibretroEnvironment.h" />
+    <ClInclude Include="..\..\xbmc\games\savegames\SavestateDatabase.h" />
+    <ClInclude Include="..\..\xbmc\games\savegames\Savestate.h" />
+    <ClInclude Include="..\..\xbmc\games\savegames\GUIDialogGameSaves.h" />
+    <ClInclude Include="..\..\xbmc\games\SerialState.h" />
+    <ClInclude Include="..\..\xbmc\games\windows\GUIViewStateWindowGames.h" />
+    <ClInclude Include="..\..\xbmc\games\windows\GUIWindowGames.h" />
     <ClInclude Include="..\..\xbmc\guilib\GUIKeyboard.h" />
     <ClInclude Include="..\..\xbmc\guilib\GUIKeyboardFactory.h" />
     <ClInclude Include="..\..\xbmc\guilib\iimage.h" />
     <ClInclude Include="..\..\xbmc\guilib\imagefactory.h" />
+    <ClInclude Include="..\..\xbmc\input\IInputHandler.h" />
     <ClInclude Include="..\..\xbmc\input\touch\generic\GenericTouchActionHandler.h" />
     <ClInclude Include="..\..\xbmc\input\touch\generic\GenericTouchSwipeDetector.h" />
     <ClInclude Include="..\..\xbmc\input\touch\generic\IGenericTouchGestureDetector.h" />
@@ -1108,13 +1170,17 @@
     <ClInclude Include="..\..\xbmc\input\touch\ITouchInputHandler.h" />
     <ClInclude Include="..\..\xbmc\input\touch\ITouchInputHandling.h" />
     <ClInclude Include="..\..\xbmc\input\touch\TouchTypes.h" />
-    <ClInclude Include="..\..\xbmc\input\windows\WINJoystick.h" />
     <ClInclude Include="..\..\xbmc\interfaces\generic\ILanguageInvocationHandler.h" />
     <ClInclude Include="..\..\xbmc\interfaces\generic\ILanguageInvoker.h" />
     <ClInclude Include="..\..\xbmc\interfaces\generic\LanguageInvokerThread.h" />
     <ClInclude Include="..\..\xbmc\interfaces\generic\ScriptInvocationManager.h" />
     <ClInclude Include="..\..\xbmc\interfaces\json-rpc\FavouritesOperations.h" />
     <ClInclude Include="..\..\xbmc\interfaces\json-rpc\ProfilesOperations.h" />
+    <ClInclude Include="..\..\xbmc\input\IJoystick.h" />
+    <ClInclude Include="..\..\xbmc\input\Joystick.h" />
+    <ClInclude Include="..\..\xbmc\input\JoystickManager.h" />
+    <ClInclude Include="..\..\xbmc\input\windows\WINJoystickDX.h" />
+    <ClInclude Include="..\..\xbmc\input\windows\WINJoystickXInput.h" />
     <ClInclude Include="..\..\xbmc\interfaces\json-rpc\PVROperations.h" />
     <ClInclude Include="..\..\xbmc\interfaces\legacy\Addon.h" />
     <ClInclude Include="..\..\xbmc\interfaces\legacy\AddonCallback.h" />
@@ -1196,6 +1262,9 @@
     <ClInclude Include="..\..\xbmc\settings\windows\GUIWindowTestPattern.h" />
     <ClInclude Include="..\..\xbmc\utils\ActorProtocol.h" />
     <ClInclude Include="..\..\xbmc\utils\BooleanLogic.h" />
+    <ClInclude Include="..\..\xbmc\utils\BSONVariantParser.h" />
+    <ClInclude Include="..\..\xbmc\utils\BSONVariantWriter.h" />
+    <ClInclude Include="..\..\xbmc\utils\IDeserializable.h" />
     <ClInclude Include="..\..\xbmc\utils\IRssObserver.h" />
     <ClInclude Include="..\..\xbmc\utils\IXmlDeserializable.h" />
     <ClInclude Include="..\..\xbmc\utils\LegacyPathTranslation.h" />
@@ -1339,8 +1408,22 @@
     <ClCompile Include="..\..\xbmc\ThumbLoader.cpp" />
     <ClCompile Include="..\..\xbmc\utils\ActorProtocol.cpp" />
     <ClCompile Include="..\..\xbmc\utils\BooleanLogic.cpp" />
+    <ClCompile Include="..\..\xbmc\utils\BSONVariantParser.cpp" />
+    <ClCompile Include="..\..\xbmc\utils\BSONVariantWriter.cpp" />
     <ClCompile Include="..\..\xbmc\utils\LegacyPathTranslation.cpp" />
     <ClCompile Include="..\..\xbmc\utils\RssManager.cpp" />
+    <ClCompile Include="..\..\xbmc\utils\test\TestBSONVariantParser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (OpenGL)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (OpenGL)|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\utils\test\TestBSONVariantWriter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (OpenGL)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (DirectX)|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release (OpenGL)|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\xbmc\utils\test\TestUrlOptions.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (DirectX)|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug (OpenGL)|Win32'">true</ExcludedFromBuild>
@@ -2833,6 +2916,14 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\bson\win32\bson.vcxproj">
+      <Project>{DBCDB3ED-0B68-49D0-BA66-59515573F6C5}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\..\lib\gtest\msvc\gtest.vcxproj" Condition="'$(Configuration)|$(Platform)'=='Debug Testsuite|Win32'">
       <Project>{c8f6c172-56f2-4e76-b5fa-c3b423b31be7}</Project>
     </ProjectReference>

@@ -35,10 +35,8 @@
 #include "utils/XBMCTinyXML.h"
 #include "XBIRRemote.h"
 
-#if defined(TARGET_WINDOWS)
-#include "input/windows/WINJoystick.h"
-#elif defined(HAS_SDL_JOYSTICK) || defined(HAS_EVENT_SERVER)
-#include "SDLJoystick.h"
+#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
+#include "JoystickManager.h"
 #endif
 
 using namespace std;
@@ -249,6 +247,61 @@ static const ActionMapping actions[] =
         {"mousedrag"         , ACTION_MOUSE_DRAG},
         {"mousemove"         , ACTION_MOUSE_MOVE},
 
+        // Game controls, defined in the same order as key.h and libretro.h
+        {"joypadb"           , ACTION_JOYPAD_B},
+        {"joypady"           , ACTION_JOYPAD_Y},
+        {"joypadselect"      , ACTION_JOYPAD_SELECT},
+        {"joypadstart"       , ACTION_JOYPAD_START},
+        {"joypadup"          , ACTION_JOYPAD_UP},
+        {"joypaddown"        , ACTION_JOYPAD_DOWN},
+        {"joypadleft"        , ACTION_JOYPAD_LEFT},
+        {"joypadright"       , ACTION_JOYPAD_RIGHT},
+        {"joypada"           , ACTION_JOYPAD_A},
+        {"joypadx"           , ACTION_JOYPAD_X},
+        {"joypadl"           , ACTION_JOYPAD_L},
+        {"joypadr"           , ACTION_JOYPAD_R},
+        {"joypadl2"          , ACTION_JOYPAD_L2},
+        {"joypadr2"          , ACTION_JOYPAD_R2},
+        {"joypadl3"          , ACTION_JOYPAD_L3},
+        {"joypadr3"          , ACTION_JOYPAD_R3},
+
+        {"analogstickleftx"  , ACTION_ANALOG_LEFT_X},
+        {"analogsticklefty"  , ACTION_ANALOG_LEFT_Y},
+        {"analogstickrightx" , ACTION_ANALOG_RIGHT_X},
+        {"analogstickrighty" , ACTION_ANALOG_RIGHT_Y},
+        {"mousecontrollerx"  , ACTION_MOUSE_CONTROLLER_X},
+        {"mousecontrollery"  , ACTION_MOUSE_CONTROLLER_Y},
+        {"mousecontrollerleft" , ACTION_MOUSE_CONTROLLER_LEFT},
+        {"mousecontrollerright" , ACTION_MOUSE_CONTROLLER_RIGHT},
+        {"lightgunx"         , ACTION_LIGHTGUN_X},
+        {"lightguny"         , ACTION_LIGHTGUN_Y},
+        {"lightguntrigger"   , ACTION_LIGHTGUN_TRIGGER},
+        {"lightguncursor"    , ACTION_LIGHTGUN_CURSOR},
+        {"lightgunturbo"     , ACTION_LIGHTGUN_TURBO},
+        {"lightgunpause"     , ACTION_LIGHTGUN_PAUSE},
+        {"lightgunstart"     , ACTION_LIGHTGUN_START},
+
+        {"save"              , ACTION_SAVE},
+        {"save1"             , ACTION_SAVE1},
+        {"save2"             , ACTION_SAVE2},
+        {"save3"             , ACTION_SAVE3},
+        {"save4"             , ACTION_SAVE4},
+        {"save5"             , ACTION_SAVE5},
+        {"save6"             , ACTION_SAVE6},
+        {"save7"             , ACTION_SAVE7},
+        {"save8"             , ACTION_SAVE8},
+        {"save9"             , ACTION_SAVE9},
+        {"load"              , ACTION_LOAD},
+        {"load1"             , ACTION_LOAD1},
+        {"load2"             , ACTION_LOAD2},
+        {"load3"             , ACTION_LOAD3},
+        {"load4"             , ACTION_LOAD4},
+        {"load5"             , ACTION_LOAD5},
+        {"load6"             , ACTION_LOAD6},
+        {"load7"             , ACTION_LOAD7},
+        {"load8"             , ACTION_LOAD8},
+        {"load9"             , ACTION_LOAD9},
+
         // Touch
         {"tap"               , ACTION_TOUCH_TAP},
         {"longpress"         , ACTION_TOUCH_LONGPRESS},
@@ -264,6 +317,28 @@ static const ActionMapping actions[] =
         { "noop"             , ACTION_NOOP}
 };
 
+/* static */
+bool CButtonTranslator::IsAnalog(int actionID)
+{
+  switch (actionID)
+  {
+  case ACTION_ANALOG_SEEK_FORWARD:
+  case ACTION_ANALOG_SEEK_BACK:
+  case ACTION_ANALOG_FORWARD:
+  case ACTION_ANALOG_REWIND:
+  case ACTION_ANALOG_MOVE:
+  case ACTION_CURSOR_LEFT:
+  case ACTION_CURSOR_RIGHT:
+  case ACTION_VOLUME_UP:
+  case ACTION_VOLUME_DOWN:
+  case ACTION_ZOOM_IN:
+  case ACTION_ZOOM_OUT:
+    return true;
+  default:
+    return false;
+  }
+}
+
 static const ActionMapping windows[] =
        {{"home"                     , WINDOW_HOME},
         {"programs"                 , WINDOW_PROGRAMS},
@@ -274,6 +349,7 @@ static const ActionMapping windows[] =
         {"music"                    , WINDOW_MUSIC},
         {"video"                    , WINDOW_VIDEOS},
         {"videos"                   , WINDOW_VIDEO_NAV},
+        {"games"                    , WINDOW_GAMES},
         {"tv"                       , WINDOW_PVR}, // backward compat
         {"pvr"                      , WINDOW_PVR},
         {"pvrguideinfo"             , WINDOW_DIALOG_PVR_GUIDE_INFO},
@@ -304,6 +380,7 @@ static const ActionMapping windows[] =
         {"appearancesettings"       , WINDOW_SETTINGS_APPEARANCE},
         {"pvrsettings"              , WINDOW_SETTINGS_MYPVR},
         {"tvsettings"               , WINDOW_SETTINGS_MYPVR},  // backward compat
+        {"gamessettings"            , WINDOW_SETTINGS_MYGAMES},
         {"scripts"                  , WINDOW_PROGRAMS}, // backward compat
         {"videofiles"               , WINDOW_VIDEO_FILES},
         {"videolibrary"             , WINDOW_VIDEO_NAV},
@@ -333,6 +410,7 @@ static const ActionMapping windows[] =
         {"osdvideosettings"         , WINDOW_DIALOG_VIDEO_OSD_SETTINGS},
         {"osdaudiosettings"         , WINDOW_DIALOG_AUDIO_OSD_SETTINGS},
         {"videobookmarks"           , WINDOW_DIALOG_VIDEO_BOOKMARKS},
+        {"gamesaves"                , WINDOW_DIALOG_GAME_SAVES},
         {"filebrowser"              , WINDOW_DIALOG_FILE_BROWSER},
         {"networksetup"             , WINDOW_DIALOG_NETWORK_SETUP},
         {"mediasource"              , WINDOW_DIALOG_MEDIA_SOURCE},
@@ -361,6 +439,7 @@ static const ActionMapping windows[] =
         {"movieinformation"         , WINDOW_DIALOG_VIDEO_INFO},
         {"textviewer"               , WINDOW_DIALOG_TEXT_VIEWER},
         {"fullscreenvideo"          , WINDOW_FULLSCREEN_VIDEO},
+        {"fullscreengame"           , WINDOW_FULLSCREEN_GAME},
         {"fullscreenlivetv"         , WINDOW_FULLSCREEN_LIVETV}, // virtual window/keymap section for PVR specific bindings in fullscreen playback (which internally uses WINDOW_FULLSCREEN_VIDEO)
         {"visualisation"            , WINDOW_VISUALISATION},
         {"slideshow"                , WINDOW_SLIDESHOW},
@@ -736,7 +815,7 @@ int CButtonTranslator::TranslateLircRemoteString(const char* szDevice, const cha
 }
 #endif
 
-#if defined(HAS_SDL_JOYSTICK) || defined(HAS_EVENT_SERVER)
+#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
 void CButtonTranslator::MapJoystickActions(int windowID, TiXmlNode *pJoystick)
 {
   string joyname = "_xbmc_"; // default global map name
@@ -1119,7 +1198,7 @@ void CButtonTranslator::MapWindowActions(TiXmlNode *pWindow, int windowID)
     }
   }
 
-#if defined(HAS_SDL_JOYSTICK) || defined(HAS_EVENT_SERVER)
+#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
   if ((pDevice = pWindow->FirstChild("joystick")) != NULL)
   {
     // map joystick actions
@@ -1454,7 +1533,7 @@ void CButtonTranslator::Clear()
   lircRemotesMap.clear();
 #endif
 
-#if defined(HAS_SDL_JOYSTICK) || defined(HAS_EVENT_SERVER)
+#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
   m_joystickButtonMap.clear();
   m_joystickAxisMap.clear();
   m_joystickHatMap.clear();

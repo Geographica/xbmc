@@ -310,6 +310,30 @@
     <Filter Include="cores\AudioEngine\Engines\ActiveAE">
       <UniqueIdentifier>{27f2c647-7b5f-4c49-b2e7-22bf360e58ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="games">
+      <UniqueIdentifier>{7ff3350b-07f8-483b-958c-0edd6081e7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="games\tags">
+      <UniqueIdentifier>{c19c485e-b24e-4c45-bb0a-6d41a429f505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="games\libretro">
+      <UniqueIdentifier>{819b8b9d-58fc-454b-8b5b-1eb8c59ab9a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="games\test">
+      <UniqueIdentifier>{1c263d16-915a-42a7-9302-4470f1c763e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cores\RetroPlayer">
+      <UniqueIdentifier>{73d2ce89-4883-4c68-9146-a90929a0b92b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="games\windows">
+      <UniqueIdentifier>{e1900649-cbda-4c79-bd6a-b99103608116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dbwrappers\test">
+      <UniqueIdentifier>{43dbf5f1-ffdc-4fd5-8f6c-5f38f89b192f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="games\savegames">
+      <UniqueIdentifier>{42e2939e-467c-4c7f-bb3e-b4860c19e9e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\xbmc\win32\pch.cpp">
@@ -2490,9 +2514,6 @@
     <ClCompile Include="..\..\xbmc\utils\RecentlyAddedJob.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\xbmc\input\windows\WINJoystick.cpp">
-      <Filter>input\windows</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\xbmc\filesystem\ImageFile.cpp">
       <Filter>filesystem</Filter>
     </ClCompile>
@@ -3078,6 +3099,99 @@
     <ClCompile Include="..\..\xbmc\ApplicationPlayer.cpp" />
     <ClCompile Include="..\..\xbmc\settings\SettingRequirement.cpp">
       <Filter>settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\input\Joystick.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\input\JoystickManager.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\input\windows\WINJoystickDX.cpp">
+      <Filter>input\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\input\windows\WINJoystickXInput.cpp">
+      <Filter>input\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\tags\GameInfoTag.cpp">
+      <Filter>games\tags</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\tags\GameInfoTagLoader.cpp">
+      <Filter>games\tags</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\GameClient.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\GameFileLoader.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\GameManager.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\libretro\LibretroEnvironment.cpp">
+      <Filter>games\libretro</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\test\TestGameFileLoader.cpp">
+      <Filter>games\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\GameSettings.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\SerialState.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayer.cpp">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerAudio.cpp">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerVideo.cpp">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerInput.cpp">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\windows\GUIWindowGames.cpp">
+      <Filter>games\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\windows\GUIViewStateWindowGames.cpp">
+      <Filter>games\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\utils\BSONVariantParser.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\utils\BSONVariantWriter.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\utils\test\TestBSONVariantParser.cpp">
+      <Filter>utils\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\utils\test\TestBSONVariantWriter.cpp">
+      <Filter>utils\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\dbwrappers\DynamicDatabase.cpp">
+      <Filter>dbwrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\dbwrappers\test\TestDynamicDatabase.cpp">
+      <Filter>dbwrappers\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\savegames\SavestateDatabase.cpp">
+      <Filter>games\savegames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\savegames\Savestate.cpp">
+      <Filter>games\savegames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\savegames\GUIDialogGameSaves.cpp">
+      <Filter>games\savegames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerDialogs.cpp">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\games\GameFileAutoLauncher.cpp">
+      <Filter>games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerBuffer.cpp">
+      <Filter>cores\RetroPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -5562,9 +5676,6 @@
     <ClInclude Include="..\..\xbmc\utils\RecentlyAddedJob.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\xbmc\input\windows\WINJoystick.h">
-      <Filter>input\windows</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\xbmc\filesystem\ImageFile.h">
       <Filter>filesystem</Filter>
     </ClInclude>
@@ -6036,6 +6147,108 @@
     <ClInclude Include="..\..\xbmc\ApplicationPlayer.h" />
     <ClInclude Include="..\..\xbmc\settings\SettingRequirement.h">
       <Filter>settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\IJoystick.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\Joystick.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\JoystickManager.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\windows\WINJoystickDX.h">
+      <Filter>input\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\windows\WINJoystickXInput.h">
+      <Filter>input\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\tags\GameInfoTag.h">
+      <Filter>games\tags</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\tags\GameInfoTagLoader.h">
+      <Filter>games\tags</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameClient.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameClientDLL.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameFileLoader.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameManager.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\libretro\libretro.h">
+      <Filter>games\libretro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\libretro\libretro_wrapped.h">
+      <Filter>games\libretro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\libretro\LibretroEnvironment.h">
+      <Filter>games\libretro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameSettings.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\SerialState.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayer.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerAudio.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerVideo.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerInput.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\windows\GUIWindowGames.h">
+      <Filter>games\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\windows\GUIViewStateWindowGames.h">
+      <Filter>games\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\utils\BSONVariantParser.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\utils\BSONVariantWriter.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\dbwrappers\DynamicDatabase.h">
+      <Filter>dbwrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\utils\IDeserializable.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\savegames\SavestateDatabase.h">
+      <Filter>games\savegames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\savegames\Savestate.h">
+      <Filter>games\savegames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\savegames\GUIDialogGameSaves.h">
+      <Filter>games\savegames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\libretro\LibretroCallbacks.h">
+      <Filter>games\libretro</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerDialogs.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\games\GameFileAutoLauncher.h">
+      <Filter>games</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\cores\RetroPlayer\RetroPlayerBuffer.h">
+      <Filter>cores\RetroPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\xbmc\input\IInputHandler.h">
+      <Filter>input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

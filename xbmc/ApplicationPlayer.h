@@ -40,6 +40,7 @@ class IAudioCallback;
 class CAction;
 class CPlayerOptions;
 class CStreamDetails;
+class IInputHandler;
 
 struct SPlayerAudioStreamInfo;
 struct SPlayerVideoStreamInfo;
@@ -113,6 +114,7 @@ public:
   int64_t GetTotalTime() const;
   void  GetVideoInfo( CStdString& strVideoInfo);
   void  GetVideoStreamInfo(SPlayerVideoStreamInfo &info);
+  IInputHandler *GetInputHandler();
   bool  HasAudio() const;
   bool  HasMenu() const;
   bool  HasVideo() const;
@@ -124,6 +126,7 @@ public:
   bool  IsPlaying() const;
   bool  IsPlayingAudio() const;
   bool  IsPlayingVideo() const;
+  bool  IsPlayingGame() const;
   bool  IsRecording() const;
   void  LoadPage(int p, int sp, unsigned char* buffer);
   bool  OnAction(const CAction &action);

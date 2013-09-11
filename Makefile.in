@@ -26,6 +26,7 @@ DVDPLAYER_ARCHIVES=xbmc/cores/dvdplayer/DVDPlayer.a \
                    xbmc/cores/dvdplayer/DVDSubtitles/DVDSubtitles.a
 
 DIRECTORY_ARCHIVES=$(DVDPLAYER_ARCHIVES) \
+                   lib/bson/libbson.a \
                    lib/SlingboxLib/SlingboxLib.a \
                    lib/libRTV/librtv.a \
                    lib/libXDAAP/libxdaap.a \
@@ -39,6 +40,7 @@ DIRECTORY_ARCHIVES=$(DVDPLAYER_ARCHIVES) \
                    xbmc/cores/DllLoader/exports/exports.a \
                    xbmc/cores/DllLoader/exports/util/exports_utils.a \
                    xbmc/cores/ExternalPlayer/ExternalPlayer.a \
+                   xbmc/cores/RetroPlayer/retroplayer.a \
                    xbmc/cores/VideoRenderers/VideoRenderer.a \
                    xbmc/cores/VideoRenderers/VideoShaders/VideoShaders.a \
                    xbmc/cores/cores.a \
@@ -50,6 +52,11 @@ DIRECTORY_ARCHIVES=$(DVDPLAYER_ARCHIVES) \
                    xbmc/filesystem/MusicDatabaseDirectory/musicdatabasedirectory.a \
                    xbmc/filesystem/VideoDatabaseDirectory/videodatabasedirectory.a \
                    xbmc/filesystem/filesystem.a \
+                   xbmc/games/games.a \
+                   xbmc/games/libretro/libretro.a \
+                   xbmc/games/savegames/savegames.a \
+                   xbmc/games/tags/gameinfotags.a \
+                   xbmc/games/windows/gamewindows.a \
                    xbmc/guilib/guilib.a \
                    xbmc/input/input.a \
                    xbmc/interfaces/generic/interfaces-generic.a \
@@ -298,12 +305,16 @@ GTEST_DIR = lib/gtest
 GTEST_INCLUDES = -I$(GTEST_DIR)/include
 GTEST_LIBS = $(GTEST_DIR)/lib/.libs/libgtest.a
 
-CHECK_DIRS = xbmc/filesystem/test \
+CHECK_DIRS = xbmc/dbwrappers/test \
+             xbmc/filesystem/test \
+             xbmc/games/test \
              xbmc/utils/test \
              xbmc/threads/test \
              xbmc/interfaces/python/test \
              xbmc/test
-CHECK_LIBS = xbmc/filesystem/test/filesystemTest.a \
+CHECK_LIBS = xbmc/dbwrappers/test/dynamicDatabaseTest.a \
+             xbmc/filesystem/test/filesystemTest.a \
+             xbmc/games/test/gamesTest.a \
              xbmc/utils/test/utilsTest.a \
              xbmc/threads/test/threadTest.a \
              xbmc/interfaces/python/test/pythonSwigTest.a \

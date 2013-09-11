@@ -328,6 +328,72 @@
 #define ACTION_SETTINGS_RESET         240
 #define ACTION_SETTINGS_LEVEL_CHANGE  241
 
+// The Joypad is essentially a Super Nintendo controller, but with additional
+// L2/R2/L3/R3 buttons, similar to a PS1 DualShock
+#define ACTION_GAME_CONTROL_START     300
+#define ACTION_JOYPAD_B               300
+#define ACTION_JOYPAD_Y               301
+#define ACTION_JOYPAD_SELECT          302
+#define ACTION_JOYPAD_START           303
+#define ACTION_JOYPAD_UP              304
+#define ACTION_JOYPAD_DOWN            305
+#define ACTION_JOYPAD_LEFT            306
+#define ACTION_JOYPAD_RIGHT           307
+#define ACTION_JOYPAD_A               308
+#define ACTION_JOYPAD_X               309
+#define ACTION_JOYPAD_L               310
+#define ACTION_JOYPAD_R               311
+#define ACTION_JOYPAD_L2              312
+#define ACTION_JOYPAD_R2              313
+#define ACTION_JOYPAD_L3              314
+#define ACTION_JOYPAD_R3              315
+
+// ID values for an analog device
+#define ACTION_ANALOG_LEFT_X          316
+#define ACTION_ANALOG_LEFT_Y          317
+#define ACTION_ANALOG_RIGHT_X         318
+#define ACTION_ANALOG_RIGHT_Y         319
+
+// The mouse is a simple mouse, similar to Super Nintendo's mouse. X and Y
+// coordinates are reported relative to the previous poll.
+#define ACTION_MOUSE_CONTROLLER_X     320
+#define ACTION_MOUSE_CONTROLLER_Y     321
+#define ACTION_MOUSE_CONTROLLER_LEFT  322
+#define ACTION_MOUSE_CONTROLLER_RIGHT 323
+
+// ID values for Lightgun devices
+#define ACTION_LIGHTGUN_X             324
+#define ACTION_LIGHTGUN_Y             325
+#define ACTION_LIGHTGUN_TRIGGER       326
+#define ACTION_LIGHTGUN_CURSOR        327
+#define ACTION_LIGHTGUN_TURBO         328
+#define ACTION_LIGHTGUN_PAUSE         329
+#define ACTION_LIGHTGUN_START         330
+#define ACTION_GAME_CONTROL_END       330
+
+#define ACTION_SAVE                   380
+#define ACTION_SAVE1                  381
+#define ACTION_SAVE2                  382
+#define ACTION_SAVE3                  383
+#define ACTION_SAVE4                  384
+#define ACTION_SAVE5                  385
+#define ACTION_SAVE6                  386
+#define ACTION_SAVE7                  387
+#define ACTION_SAVE8                  388
+#define ACTION_SAVE9                  389
+
+#define ACTION_LOAD                   390
+#define ACTION_LOAD1                  391
+#define ACTION_LOAD2                  392
+#define ACTION_LOAD3                  393
+#define ACTION_LOAD4                  394
+#define ACTION_LOAD5                  395
+#define ACTION_LOAD6                  396
+#define ACTION_LOAD7                  397
+#define ACTION_LOAD8                  398
+#define ACTION_LOAD9                  399
+
+
 // touch actions
 #define ACTION_TOUCH_TAP              401
 #define ACTION_TOUCH_TAP_TEN          410

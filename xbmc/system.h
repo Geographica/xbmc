@@ -89,6 +89,10 @@
   #define HAS_UPNP
 #endif
 
+#if defined(HAS_SDL_JOYSTICK) || defined(HAS_LINUX_JOYSTICK)
+  #define HAS_JOYSTICK
+#endif
+
 #if defined(HAVE_LIBMDNSEMBEDDED)
   #define HAS_ZEROCONF
   #define HAS_MDNS
@@ -112,7 +116,7 @@
  *****************/
 
 #if defined(TARGET_WINDOWS)
-#define HAS_SDL_JOYSTICK
+#define HAS_JOYSTICK
 #define HAS_DVD_DRIVE
 #define HAS_WIN32_NETWORK
 #define HAS_IRSERVERSUITE
@@ -276,3 +280,18 @@
 #else
 #define DEFAULT_SKIN          "skin.confluence"
 #endif
+
+// BSON library configuration
+#ifndef _CRT_SECURE_NO_WARNINGS
+  #define _CRT_SECURE_NO_WARNINGS
+#endif
+#ifdef __BIG_ENDIAN__
+  #define MONGO_BIG_ENDIAN
+#endif
+#ifdef TARGET_WINDOWS
+  #define MONGO_USE__INT64
+#else
+  #define MONGO_HAVE_STDINT
+#endif
+#define MONGO_STATIC_BUILD
+#define MONGO_HAVE_BOOL

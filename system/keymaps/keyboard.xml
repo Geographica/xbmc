@@ -244,6 +244,70 @@
       <pagedown>SkipPrevious</pagedown>
     </keyboard>
   </FullscreenVideo>
+  <FullscreenGame>
+    <keyboard>
+      <escape>Fullscreen</escape>
+      <backspace>Stop</backspace>
+      <return>JoypadStart</return>
+      <enter>JoypadStart</enter>
+      <return mod="ctrl">JoypadSelect</return>
+      <enter mod="ctrl">JoypadSelect</enter>
+      <up>JoypadUp</up>
+      <down>JoypadDown</down>
+      <left>JoypadLeft</left>
+      <right>JoypadRight</right>
+      <x>JoypadA</x>
+      <z>JoypadB</z>
+      <c>JoypadX</c>
+      <d>JoypadY</d>
+      <a>JoypadL</a>
+      <s>JoypadR</s>
+      <one>Load1</one>
+      <two>Load2</two>
+      <three>Load3</three>
+      <four>Load4</four>
+      <five>Load5</five>
+      <six>Load6</six>
+      <seven>Load7</seven>
+      <eight>Load8</eight>
+      <nine>Load9</nine>
+      <!-- US keyboard. May need changes for other locales -->
+      <exclaim>Save1</exclaim>
+      <at>Save2</at>
+      <hash>Save3</hash>
+      <dollar>Save4</dollar>
+      <percent>Save5</percent>
+      <caret>Save6</caret>
+      <ampersand>Save7</ampersand>
+      <asterisk>Save8</asterisk>
+      <leftbracket>Save9</leftbracket>
+      <f1>ActivateWindow(GameSaves)</f1>
+    </keyboard>
+  </FullscreenGame>
+  <GameSaves>
+    <keyboard>
+      <delete>Delete</delete>
+      <one>Load1</one>
+      <two>Load2</two>
+      <three>Load3</three>
+      <four>Load4</four>
+      <five>Load5</five>
+      <six>Load6</six>
+      <seven>Load7</seven>
+      <eight>Load8</eight>
+      <nine>Load9</nine>
+      <exclaim>Save1</exclaim>
+      <at>Save2</at>
+      <hash>Save3</hash>
+      <dollar>Save4</dollar>
+      <percent>Save5</percent>
+      <caret>Save6</caret>
+      <ampersand>Save7</ampersand>
+      <asterisk>Save8</asterisk>
+      <leftbracket>Save9</leftbracket>
+      <f1>Close</f1>
+    </keyboard>
+  </GameSaves>
   <VideoTimeSeek>
     <keyboard>
       <return>Select</return>
@@ -436,6 +500,11 @@
       <d>MoveItemDown</d>
     </keyboard>
   </MyVideoPlaylist>
+  <MyGames>
+    <keyboard>
+      <delete>Delete</delete>
+    </keyboard>
+  </MyGames>
   <MyPictures>
     <keyboard>
       <delete>Delete</delete>

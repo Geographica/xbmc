@@ -36,6 +36,7 @@ namespace ADDON
     ADDON_VIZ,
     ADDON_SKIN,
     ADDON_PVRDLL,
+    ADDON_GAMEDLL,
     ADDON_SCRIPT,
     ADDON_SCRIPT_WEATHER,
     ADDON_SCRIPT_SUBTITLES,
@@ -53,6 +54,7 @@ namespace ADDON
     ADDON_VIDEO, // virtual addon types
     ADDON_AUDIO,
     ADDON_IMAGE,
+    ADDON_GAME,
     ADDON_EXECUTABLE,
     ADDON_VIZ_LIBRARY, // add noninstallable after this and installable before
     ADDON_SCRAPER_LIBRARY,

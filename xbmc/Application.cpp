@@ -277,6 +277,12 @@
 #include "utils/XMLUtils.h"
 #include "addons/AddonInstaller.h"
 
+/* Game-related include files */
+#include "input/IInputHandler.h"
+#include "games/GameManager.h"
+#include "games/windows/GUIWindowGames.h"
+#include "games/savegames/GUIDialogGameSaves.h"
+
 #ifdef HAS_PERFORMANCE_SAMPLE
 #include "utils/PerformanceSample.h"
 #else
@@ -333,10 +339,8 @@
   #include "input/windows/IRServerSuite.h"
 #endif
 
-#if defined(TARGET_WINDOWS)
-#include "input/windows/WINJoystick.h"
-#elif defined(HAS_SDL_JOYSTICK) || defined(HAS_EVENT_SERVER)
-#include "input/SDLJoystick.h"
+#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
+#include "input/JoystickManager.h"
 #endif
 
 #if defined(TARGET_ANDROID)
@@ -366,6 +370,7 @@ using namespace ANNOUNCEMENT;
 using namespace PVR;
 using namespace EPG;
 using namespace PERIPHERALS;
+using namespace JOYSTICK;
 
 using namespace XbmcThreads;
 
@@ -470,9 +475,18 @@ bool CApplication::OnEvent(XBMC_Event& newEvent)
         CApplicationMessenger::Get().Quit();
       break;
     case XBMC_KEYDOWN:
+      // RetroPlayer is notified of the key press in OnKey()
       g_application.OnKey(g_Keyboard.ProcessKeyDown(newEvent.key.keysym));
       break;
     case XBMC_KEYUP:
+      {
+        IInputHandler *inputHandler = g_application.m_pPlayer->GetInputHandler();
+        if (inputHandler)
+        {
+          CKey key = CKeyboardStat::TranslateKey(newEvent.key.keysym);
+          inputHandler->ProcessKeyUp(0, key.GetButtonCode());
+        }
+      }
       g_Keyboard.ProcessKeyUp();
       break;
     case XBMC_MOUSEBUTTONDOWN:
@@ -1385,6 +1399,8 @@ bool CApplication::Initialize()
     g_windowManager.Add(new CGUIWindowScreensaver);
     g_windowManager.Add(new CGUIWindowWeather);
     g_windowManager.Add(new CGUIWindowStartup);
+    g_windowManager.Add(new CGUIWindowGames);
+    g_windowManager.Add(new CGUIDialogGameSaves);
 
     /* window id's 3000 - 3100 are reserved for python */
 
@@ -1464,10 +1480,12 @@ bool CApplication::Initialize()
   // reset our screensaver (starts timers etc.)
   ResetScreenSaver();
 
-#ifdef HAS_SDL_JOYSTICK
-  g_Joystick.SetEnabled(CSettings::Get().GetBool("input.enablejoystick") &&
-                    CPeripheralImon::GetCountOfImonsConflictWithDInput() == 0 );
+#ifdef HAS_JOYSTICK
+  CJoystickManager::Get().SetEnabled(CSettings::Get().GetBool("input.enablejoystick") &&
+                    CPeripheralImon::GetCountOfImonsConflictWithDInput() == 0);
 #endif
+
+  GAMES::CGameManager::Get().Start();
 
   return true;
 }
@@ -2289,6 +2307,17 @@ bool CApplication::OnKey(const CKey& key)
       if (action.GetID() == 0)
         action = CButtonTranslator::GetInstance().GetAction(iWin, key);
     }
+    else if (m_pPlayer->IsPlayingGame())
+    {
+      // Fetch action from <FullscreenGame> tag instead of <FullscreenVideo>
+      action = CButtonTranslator::GetInstance().GetAction(WINDOW_FULLSCREEN_GAME, key);
+      if (ACTION_GAME_CONTROL_START <= action.GetID() && action.GetID() <= ACTION_GAME_CONTROL_END)
+      {
+        // Notify RetroPlayer's input system of the pressed key
+        if (m_pPlayer->GetInputHandler())
+          m_pPlayer->GetInputHandler()->ProcessKeyDown(0, key.GetButtonCode(), action);
+      }
+    }
     else
     {
       // in any other case use the fullscreen window section of keymap.xml to map key->action
@@ -2720,6 +2749,13 @@ bool CApplication::OnAction(const CAction &action)
     }
   }
 
+  if (m_pPlayer->IsPlayingGame() && ((ACTION_SAVE <= action.GetID() && action.GetID() <= ACTION_SAVE9) ||
+                                     (ACTION_LOAD <= action.GetID() && action.GetID() <= ACTION_LOAD9)))
+  {
+    m_pPlayer->OnAction(action.GetID());
+    return true;
+  }
+
   if (g_peripherals.OnAction(action))
     return true;
 
@@ -2853,94 +2889,11 @@ void CApplication::FrameMove(bool processEvents, bool processGUI)
 
 bool CApplication::ProcessGamepad(float frameTime)
 {
-#ifdef HAS_SDL_JOYSTICK
-  if (!m_AppFocused)
-    return false;
-
-  int iWin = GetActiveWindowID();
-  int bid = 0;
-  g_Joystick.Update();
-  if (g_Joystick.GetButton(bid))
+#ifdef HAS_JOYSTICK
+  if (m_AppFocused && CJoystickManager::Get().Count() > 0)
   {
-    // reset Idle Timer
-    m_idleTimer.StartZero();
-
-    ResetScreenSaver();
-    if (WakeUpScreenSaverAndDPMS())
-    {
-      g_Joystick.Reset(true);
-      return true;
-    }
-
-    int actionID;
-    CStdString actionName;
-    bool fullrange;
-    if (CButtonTranslator::GetInstance().TranslateJoystickString(iWin, g_Joystick.GetJoystick().c_str(), bid, JACTIVE_BUTTON, actionID, actionName, fullrange))
-    {
-      CAction action(actionID, 1.0f, 0.0f, actionName);
-      g_Joystick.Reset();
-      g_Mouse.SetActive(false);
-      return ExecuteInputAction(action);
-    }
-    else
-    {
-      g_Joystick.Reset();
-    }
-  }
-  if (g_Joystick.GetAxis(bid))
-  {
-    if (g_Joystick.GetAmount() < 0)
-    {
-      bid = -bid;
-    }
-
-    int actionID;
-    CStdString actionName;
-    bool fullrange;
-    if (CButtonTranslator::GetInstance().TranslateJoystickString(iWin, g_Joystick.GetJoystick().c_str(), bid, JACTIVE_AXIS, actionID, actionName, fullrange))
-    {
-      ResetScreenSaver();
-      if (WakeUpScreenSaverAndDPMS())
-      {
-        return true;
-      }
-
-      CAction action(actionID, fullrange ? (g_Joystick.GetAmount() + 1.0f)/2.0f : fabs(g_Joystick.GetAmount()), 0.0f, actionName);
-      g_Joystick.Reset();
-      g_Mouse.SetActive(false);
-      return ExecuteInputAction(action);
-    }
-    else
-    {
-      g_Joystick.ResetAxis(abs(bid));
-    }
-  }
-  int position = 0;
-  if (g_Joystick.GetHat(bid, position))
-  {
-    // reset Idle Timer
-    m_idleTimer.StartZero();
-
-    ResetScreenSaver();
-    if (WakeUpScreenSaverAndDPMS())
-    {
-      g_Joystick.Reset();
-      return true;
-    }
-
-    int actionID;
-    CStdString actionName;
-    bool fullrange;
-
-    bid = position<<16|bid;
-
-    if (bid && CButtonTranslator::GetInstance().TranslateJoystickString(iWin, g_Joystick.GetJoystick().c_str(), bid, JACTIVE_HAT, actionID, actionName, fullrange))
-    {
-      CAction action(actionID, 1.0f, 0.0f, actionName);
-      g_Joystick.Reset();
-      g_Mouse.SetActive(false);
-      return ExecuteInputAction(action);
-    }
+    CJoystickManager::Get().Update();
+    return true;
   }
 #endif
   return false;
@@ -3135,8 +3088,9 @@ bool CApplication::ProcessJoystickEvent(const std::string& joystickName, int wKe
    if (WakeUpScreenSaverAndDPMS())
      return true;
 
-#ifdef HAS_SDL_JOYSTICK
-   g_Joystick.Reset();
+#ifdef HAS_JOYSTICK
+   // Reset the action repeat event
+   CJoystickManager::Get().Reset();
 #endif
    g_Mouse.SetActive(false);
 
@@ -3193,6 +3147,8 @@ int CApplication::GetActiveWindowID(void)
     // check for LiveTV and switch to it's virtual window
     else if (g_PVRManager.IsStarted() && g_application.CurrentFileItem().HasPVRChannelInfoTag())
       iWin = WINDOW_FULLSCREEN_LIVETV;
+    else if (m_pPlayer->IsPlayingGame())
+      iWin = WINDOW_FULLSCREEN_GAME;
   }
 
   // Return the window id
@@ -3290,6 +3246,7 @@ bool CApplication::Cleanup()
     g_windowManager.Delete(WINDOW_PROGRAMS);
     g_windowManager.Delete(WINDOW_PICTURES);
     g_windowManager.Delete(WINDOW_WEATHER);
+    g_windowManager.Delete(WINDOW_GAMES);
 
     g_windowManager.Delete(WINDOW_SETTINGS_MYPICTURES);
     g_windowManager.Remove(WINDOW_SETTINGS_MYPROGRAMS);
@@ -3300,10 +3257,13 @@ bool CApplication::Cleanup()
     g_windowManager.Remove(WINDOW_SETTINGS_SERVICE);
     g_windowManager.Remove(WINDOW_SETTINGS_APPEARANCE);
     g_windowManager.Remove(WINDOW_SETTINGS_MYPVR);
+    g_windowManager.Remove(WINDOW_SETTINGS_MYGAMES);
     g_windowManager.Remove(WINDOW_DIALOG_KAI_TOAST);
 
     g_windowManager.Remove(WINDOW_DIALOG_SEEK_BAR);
     g_windowManager.Remove(WINDOW_DIALOG_VOLUME_BAR);
+
+    g_windowManager.Delete(WINDOW_DIALOG_GAME_SAVES);
 
     CAddonMgr::Get().DeInit();
 
@@ -3411,6 +3371,7 @@ void CApplication::Stop(int exitCode)
     CApplicationMessenger::Get().Cleanup();
 
     StopPVRManager();
+    GAMES::CGameManager::Get().Stop();
     StopServices();
     //Sleep(5000);
 
@@ -3954,7 +3915,7 @@ PlayBackRet CApplication::PlayFile(const CFileItem& item, bool bRestart)
      * This should speed up player startup for files on internet filesystems (eg. webdav) and
      * increase performance on low powered systems (Atom/ARM).
      */
-    if (item.IsVideo())
+    if (item.IsVideo() || item.IsGame())
     {
       CJobManager::GetInstance().Pause(CJob::PRIORITY_LOW); // Pause any low priority jobs
     }
@@ -4883,7 +4844,7 @@ bool CApplication::ExecuteXBMCAction(std::string actionStr)
     }
     else
 #endif
-    if (item.IsAudio() || item.IsVideo())
+    if (item.IsAudio() || item.IsVideo() || item.IsGame())
     { // an audio or video file
       PlayFile(item);
     }
